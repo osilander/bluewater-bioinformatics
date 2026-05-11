@@ -302,6 +302,76 @@
       margin-bottom: 0.9rem;
     }
 
+    /* ── SAMPLE REPORTS ── */
+    #samples { background: var(--white); }
+
+    .samples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 2rem;
+    }
+
+    .sample-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .sample-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(10,37,64,0.16); }
+
+    .sample-card-bar {
+      background: var(--blue-deep);
+      padding: 0.55rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .sample-card-bar span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      display: inline-block;
+    }
+
+    .sample-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .sample-caption {
+      padding: 0.9rem 1.1rem;
+      background: var(--grey-bg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,37,64,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
     /* ── CONTACT ── */
     #contact { background: var(--white); }
 
@@ -392,6 +462,7 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#tech">Technology</a></li>
+    <li><a href="#samples">Sample Reports</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -512,6 +583,33 @@
   </div>
 </section>
 
+<!-- SAMPLE REPORTS -->
+<section id="samples">
+  <div class="section-inner">
+    <div class="section-label">Example Work</div>
+    <h2>Sample Reports</h2>
+    <p class="section-sub">Every project delivers a bespoke HTML report. Click to enlarge.</p>
+
+    <div class="samples-grid">
+      <div class="sample-card" onclick="openLightbox('images/bact_genome_project.jpg')">
+        <div class="sample-card-bar"><span></span><span></span><span></span></div>
+        <img src="images/bact_genome_project.jpg" alt="Bacterial genome assembly and contamination review report" />
+        <div class="sample-caption">Bacterial genome assembly &amp; contamination review</div>
+      </div>
+      <div class="sample-card" onclick="openLightbox('images/euk_annotation_proj.jpg')">
+        <div class="sample-card-bar"><span></span><span></span><span></span></div>
+        <img src="images/euk_annotation_proj.jpg" alt="Eukaryotic gene recovery report" />
+        <div class="sample-caption">Eukaryotic gene recovery report</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
@@ -561,6 +659,15 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
   // Smooth scroll for nav links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
