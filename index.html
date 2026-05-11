@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bluewater Bioinformatics</title>
+  <style>
+    :root {
+      --blue-deep:   #0a2540;
+      --blue-mid:    #1a4a7a;
+      --blue-light:  #2e86c1;
+      --blue-pale:   #d6eaf8;
+      --teal:        #17a589;
+      --teal-light:  #e8f8f5;
+      --text:        #1c2833;
+      --text-muted:  #566573;
+      --white:       #ffffff;
+      --grey-bg:     #f4f6f8;
+      --border:      #d5d8dc;
+      --radius:      10px;
+      --shadow:      0 4px 20px rgba(10,37,64,0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      background: var(--white);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--blue-deep);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 62px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    .nav-brand {
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-brand svg { flex-shrink: 0; }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 60%, var(--blue-light) 100%);
+      color: var(--white);
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1440' height='160' viewBox='0 0 1440 160'%3E%3Cpath fill='rgba(255,255,255,0.04)' d='M0,96 C360,160 1080,0 1440,96 L1440,160 L0,160Z'/%3E%3C/svg%3E") bottom/cover no-repeat;
+    }
+
+    .hero-inner { position: relative; max-width: 760px; margin: 0 auto; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 span { color: #7ec8e3; }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 580px;
+      margin: 0 auto 2.2rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.85rem 2.2rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 16px rgba(23,165,137,0.4);
+    }
+
+    .hero-cta:hover { background: #148f77; transform: translateY(-2px); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1060px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      font-weight: 800;
+      color: var(--blue-deep);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--grey-bg); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--blue-light);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(10,37,64,0.14); }
+
+    .service-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      background: var(--blue-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+      margin-bottom: 0.4rem;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* ── WHY US ── */
+    #why { background: var(--white); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .why-card {
+      background: var(--teal-light);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      border-left: 5px solid var(--teal);
+    }
+
+    .why-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+      margin-bottom: 0.4rem;
+    }
+
+    .why-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* ── TECH ── */
+    #tech { background: var(--blue-deep); color: var(--white); }
+
+    #tech .section-label { color: #7ec8e3; }
+    #tech h2 { color: var(--white); }
+    #tech .section-sub { color: rgba(255,255,255,0.7); }
+
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.9);
+      padding: 0.5rem 1.1rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* ── REVIEWS ── */
+    #reviews { background: var(--grey-bg); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .review-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .review-stars { color: #f1c40f; font-size: 1.1rem; letter-spacing: 2px; }
+
+    .review-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-style: italic;
+      flex: 1;
+    }
+
+    .review-author {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+    }
+
+    .review-author span {
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    /* placeholder card */
+    .review-placeholder {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      border: 2px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--white); }
+
+    .contact-box {
+      max-width: 600px;
+      background: var(--grey-bg);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--blue-light);
+      box-shadow: 0 0 0 3px rgba(46,134,193,0.15);
+    }
+
+    textarea { resize: vertical; min-height: 120px; }
+
+    .btn-submit {
+      display: inline-block;
+      background: var(--blue-light);
+      color: var(--white);
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      font-family: inherit;
+    }
+
+    .btn-submit:hover { background: var(--blue-mid); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--blue-deep);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+    }
+
+    footer strong { color: rgba(255,255,255,0.9); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      section { padding: 3.5rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7ec8e3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 12 Q6 6 12 12 Q18 18 22 12"/>
+      <path d="M2 17 Q6 11 12 17 Q18 23 22 17" opacity="0.5"/>
+    </svg>
+    Bluewater Bioinformatics
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Contract &amp; Consulting</div>
+    <h1>Expert Bioinformatics<br><span>On Demand</span></h1>
+    <p>From raw reads to publication-ready results. Fast turnaround, bespoke HTML reports, and deep expertise across genomics, metagenomics, and beyond.</p>
+    <a href="#contact" class="hero-cta">Get in touch &rarr;</a>
+  </div>
+</header>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-label">What I do</div>
+    <h2>Bioinformatics Services</h2>
+    <p class="section-sub">End-to-end analysis for a wide range of sequencing data types and biological questions.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🧬</div>
+        <h3>Genome Assembly</h3>
+        <p>De novo and reference-guided assembly of prokaryotic and eukaryotic genomes. Short-read, long-read, and hybrid approaches.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌍</div>
+        <h3>Metagenomics</h3>
+        <p>Shotgun metagenomic profiling, binning, and functional annotation. Taxonomic classification from complex environmental samples.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔬</div>
+        <h3>Amplicon Analysis</h3>
+        <p>16S, 18S, ITS, and custom amplicon sequencing pipelines. OTU/ASV calling, diversity metrics, and community composition.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Phylogenetics</h3>
+        <p>Maximum likelihood and Bayesian phylogenetic inference, ancestral state reconstruction, and evolutionary rate analysis.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔎</div>
+        <h3>SNP &amp; Variant Calling</h3>
+        <p>Population-scale variant detection, filtering, and annotation. GWAS-ready VCFs and downstream population genomics statistics.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>RNA-seq &amp; Expression</h3>
+        <p>Differential expression analysis, pathway enrichment, splicing analysis, and visualisation-ready outputs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-label">Why Bluewater</div>
+    <h2>Fast, Clear, and Reproducible</h2>
+    <p class="section-sub">You get more than a data dump — every project comes with context, clarity, and a deliverable you can actually use.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>⚡ Quick Turnaround</h3>
+        <p>Lean workflows and focused expertise mean results in days, not months. Timelines discussed upfront with no surprises.</p>
+      </div>
+      <div class="why-card">
+        <h3>📄 Bespoke HTML Reports</h3>
+        <p>Interactive, self-contained HTML reports tailored to your data — shareable with collaborators without any extra software.</p>
+      </div>
+      <div class="why-card">
+        <h3>🔁 Reproducible Pipelines</h3>
+        <p>Code, versions, and parameters documented at every step. Fully reproducible analyses you can build on.</p>
+      </div>
+      <div class="why-card">
+        <h3>🤝 Direct Communication</h3>
+        <p>You work directly with the analyst, not a project manager. Questions answered quickly, revisions handled efficiently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section id="tech">
+  <div class="section-inner">
+    <div class="section-label">Technology</div>
+    <h2>Platform &amp; Tool Expertise</h2>
+    <p class="section-sub">Comfortable with the full range of modern sequencing platforms and bioinformatics software.</p>
+
+    <div class="tech-pills">
+      <span class="pill">Illumina (short-read)</span>
+      <span class="pill">Oxford Nanopore (long-read)</span>
+      <span class="pill">Hybrid assembly</span>
+      <span class="pill">R / Bioconductor</span>
+      <span class="pill">Python</span>
+      <span class="pill">Snakemake / Nextflow</span>
+      <span class="pill">QIIME2</span>
+      <span class="pill">GATK</span>
+      <span class="pill">SPAdes / Flye</span>
+      <span class="pill">IQ-TREE / RAxML</span>
+      <span class="pill">DESeq2 / edgeR</span>
+      <span class="pill">Kraken2 / MetaPhlan</span>
+      <span class="pill">BWA / Minimap2</span>
+      <span class="pill">Linux / HPC clusters</span>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-label">Client Reviews</div>
+    <h2>What Clients Say</h2>
+    <p class="section-sub">Feedback from researchers and teams I've worked with.</p>
+
+    <div class="reviews-grid">
+      <!-- Populated reviews go here — add more cards as you collect them -->
+      <div class="review-placeholder">
+        Reviews coming soon.<br>Check back after our first projects!
+      </div>
+      <div class="review-placeholder">
+        &nbsp;
+      </div>
+      <div class="review-placeholder">
+        &nbsp;
+      </div>
+    </div>
+
+    <!-- Example of a filled review card (uncomment and edit to add real ones):
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Delivered a complete metagenomics pipeline and interactive report within the week. Exactly what we needed for the grant submission."</p>
+        <div class="review-author">Dr. A. Researcher <span>— University of Somewhere</span></div>
+      </div>
+    </div>
+    -->
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get Started</div>
+    <h2>Start a Project</h2>
+    <p class="section-sub">Describe your data and question — I'll get back to you within one business day with a timeline and quote.</p>
+
+    <div class="contact-box">
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-group">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" placeholder="Dr. Jane Smith" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="jane@university.edu" required />
+        </div>
+        <div class="form-group">
+          <label for="service">Service area</label>
+          <select id="service" name="service">
+            <option value="">— Select one —</option>
+            <option>Genome Assembly</option>
+            <option>Metagenomics</option>
+            <option>Amplicon Analysis</option>
+            <option>Phylogenetics</option>
+            <option>SNP / Variant Calling</option>
+            <option>RNA-seq / Expression</option>
+            <option>Other / Multiple</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Project description</label>
+          <textarea id="message" name="message" placeholder="Briefly describe your data (organism, platform, number of samples) and the biological question you want to answer." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send enquiry &rarr;</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Bluewater Bioinformatics</strong><br>
+  Contract bioinformatics services &mdash; genome to insight.<br>
+  <br>
+  &copy; <span id="yr"></span> Bluewater Bioinformatics. All rights reserved.
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>
