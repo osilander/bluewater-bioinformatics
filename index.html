@@ -235,6 +235,89 @@
 
     .why-card p { font-size: 0.9rem; color: var(--text-muted); }
 
+    /* ── ABOUT ── */
+    #about { background: var(--grey-bg); }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .about-photo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      text-align: center;
+    }
+
+    .about-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--blue-pale);
+      border: 4px solid var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .about-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-avatar svg { opacity: 0.4; }
+
+    .about-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+    }
+
+    .about-location {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .about-bio p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    .about-stat strong {
+      display: block;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--blue-light);
+      line-height: 1;
+    }
+
+    .about-stat span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 700px) {
+      .about-inner { grid-template-columns: 1fr; }
+      .about-photo { flex-direction: row; text-align: left; }
+    }
+
     /* ── TECH ── */
     #tech { background: var(--blue-deep); color: var(--white); }
 
@@ -461,6 +544,7 @@
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#why">Why Us</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#tech">Technology</a></li>
     <li><a href="#samples">Sample Reports</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -552,6 +636,41 @@
       <div class="why-card">
         <h3>🤝 Direct Communication</h3>
         <p>I work directly with you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About</div>
+    <h2>Who We Are</h2>
+
+    <div class="about-inner">
+      <div class="about-photo">
+        <div class="about-avatar">
+          <!-- Replace with: <img src="images/headshot.jpg" alt="Your name" /> -->
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#2e86c1" stroke-width="1.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="about-name">Olin Silander</div>
+          <div class="about-location">📍 Aotearoa New Zealand</div>
+        </div>
+      </div>
+
+      <div class="about-bio">
+        <p>Bluewater Bioinformatics is a boutique consultancy built on a career that began in the wet lab. Early work in microbiology, molecular genetics, and evolutionary biology gave way to a growing focus on computation as sequencing technology began to scale — long before next-generation sequencing became routine.</p>
+        <p>That transition was a natural one: the biological questions were always the same, only the tools changed. Over the past decade, the toolkit has expanded to include nearly ten years of hands-on experience with Oxford Nanopore sequencing, from its earliest commercial releases through to the present day. The result is an unusually broad perspective — from organism to algorithm, from single gene to whole genome.</p>
+        <p>Every project is handled personally, with the full weight of that experience behind it.</p>
+
+        <div class="about-stats">
+          <div class="about-stat"><strong>25+</strong><span>Years in computational biology</span></div>
+          <div class="about-stat"><strong>10+</strong><span>Years with Oxford Nanopore</span></div>
+          <div class="about-stat"><strong>NZ</strong><span>Based, globally available</span></div>
+        </div>
       </div>
     </div>
   </div>
